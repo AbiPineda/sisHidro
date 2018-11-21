@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable id="tbl" var="pozo" value="#{rowGroupViewPozos.pozos}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} 
+                         {NextPageLink} {LastPageLink} {Exporters}"
+                         paginator="true" rows="10" style="margin-bottom:20px">
+
+                <f:facet name="{Exporters}">
+                    <h:commandLink>
+                        <p:graphicImage name="/imagenes/excel.png" width="24"/>
+                        <p:dataExporter type="xls" target="tbl" fileName="pozos" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage name="/imagenes/pdf.png" width="24"/>
+                        <p:dataExporter type="pdf" target="tbl" fileName="pozos"/>
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage name="/imagenes/csv.png" width="24"/>
+                        <p:dataExporter type="csv" target="tbl" fileName="pozos" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage name="/imagenes/xml.png" width="24"/>
+                        <p:dataExporter type="xml" target="tbl" fileName="pozos" />
+                    </h:commandLink>
+                </f:facet>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Código" />
+                    </f:facet>
+                    <h:outputText value="#{pozo.pozo}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Profundidad"/>
+                    </f:facet>
+                    <h:outputText value="#{pozo.profundidad}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Longitud" />
+                    </f:facet>
+                    <h:outputText value="#{pozo.longitud}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Latitud" />
+                    </f:facet>
+                    <h:outputText value="#{pozo.latitud}" />
+                </p:column>
+            </p:dataTable>
+
+            <h3>Exportar datos solamente</h3>
+            <h:commandLink>
+                <p:graphicImage name="/imagenes/excel.png" />
+                <p:dataExporter type="xls" target="tbl" fileName="pozos" pageOnly="true"/>
+            </h:commandLink>
+
+            <h:commandLink>
+                <p:graphicImage name="/imagenes/pdf.png" />
+                <p:dataExporter type="pdf" target="tbl" fileName="pozos" pageOnly="true" />
+            </h:commandLink>
+
+            <h:commandLink>
+                <p:graphicImage name="/imagenes/csv.png" />
+                <p:dataExporter type="csv" target="tbl" fileName="pozos" pageOnly="true" />
+            </h:commandLink>
+
+            <h:commandLink>
+                <p:graphicImage name="/imagenes/xml.png" />
+                <p:dataExporter type="xml" target="tbl" fileName="pozos" pageOnly="true" />
+            </h:commandLink>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

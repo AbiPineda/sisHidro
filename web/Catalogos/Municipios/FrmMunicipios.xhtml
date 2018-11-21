@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form>
+            <p:panel header="Nuevo Municipio">
+                <p:panelGrid columns="2" style="width: 100%">
+
+                    <p:outputLabel for="codigodepartamento" value="DEPARTAMENTO*"/>
+                    <p:autoComplete id="codigodepartamento" 
+                                    value="#{autoCompleteBeanDepartamentos.departamentos}"
+                                    completeMethod="#{autoCompleteBeanDepartamentos.completeDepartamentosDespachos}"
+                                    var="m" itemLabel="#{m.nombredepartamento}" itemValue="#{m}"
+                                    converter="convertidorDepartamento" forceSelection="true"
+                                    dropdown="true">
+                        <p:column>
+                            #{m.iddepartamento}
+                        </p:column>
+                        <p:column>
+                            #{m.nombredepartamento}
+                        </p:column>
+                            
+                    </p:autoComplete>
+                    
+                    <h:outputLabel for="Nombre Municipio" value="Municipio" />
+                    <p:inputText id="titulolibro"
+                                 value="#{municipiosBean.municipioSelected.nombremunicipio}"
+                                 required="true" label="Nombre municipio"/>
+                    <f:facet name="footer">
+                        <p:commandButton id="guardar" value="Guardar" icon="ui-icon-check"
+                                         style="margin: 0"
+                                         action="#{municipiosBean.insertarMunicipios()}">
+                        </p:commandButton>
+                        
+                         <p:commandButton id="cancelar" value="Cancelar" icon="ui-icon-circle-close"
+                                         style="margin: 0"
+                                         action="TblMunicipios">
+                        </p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

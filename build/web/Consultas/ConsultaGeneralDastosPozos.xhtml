@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:define name="content">
+        <h:form id="ConsultaDatosPozos" acceptcharset="ISO-8859-1">
+            <p:panel header="LISTADO DE DATOS DE LOS POZOS"  >
+                <p:toolbar>
+
+                    <f:facet name="left">
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" href="./../../index.xhtml"/>
+                    </f:facet> 
+
+                </p:toolbar>
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+
+                <p:dataTable id="ConsultaDatosPozos" value="#{consdatospozosbeans.lstpozos}" 
+                             var="ConsPozos" 
+                             paginator="true" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks}
+                             {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                             rowsPerPageTemplate="5,10,15" 
+                             >   
+
+                    <p:column headerText="Pozo" filterBy="#{ConsPozos.pozo}">
+                        <h:outputLabel value="#{ConsPozos.pozo}"/>
+                    </p:column>
+                    <p:column headerText="Tipo pozo" filterBy="#{ConsPozos.tipopozo}">
+                        <h:outputLabel value="#{ConsPozos.tipopozo}"/>
+                    </p:column>  
+                    <p:column headerText="Latitud" filterBy="#{ConsPozos.latitud}">
+                        <h:outputLabel value="#{ConsPozos.latitud}"/>
+                    </p:column>  
+                    <p:column headerText="Longitud" filterBy="#{ConsPozos.longitud}">
+                        <h:outputLabel value="#{ConsPozos.longitud}"/>
+                    </p:column>                      
+                    <p:column headerText="Altura(msnm)" filterBy="#{ConsPozos.altura}">
+                        <h:outputLabel value="#{ConsPozos.altura}"/>
+                    </p:column>  
+                    <p:column headerText="Nivel de pozo(mts)" filterBy="#{ConsPozos.niveldepozo}">
+                        <h:outputLabel value="#{ConsPozos.niveldepozo}"/>
+                    </p:column>  
+                    <p:column headerText="Profundidad (mts)" filterBy="#{ConsPozos.profundidad}">
+                        <h:outputLabel value="#{ConsPozos.profundidad}"/>
+                    </p:column>                    
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

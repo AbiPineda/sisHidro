@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="/css/default.css"/>
+        <h:outputStylesheet name="/css/tableLayout.css"/>
+        <title>Sistema Hidrometeorológico</title>
+    </h:head>
+
+    <h:body>
+        <div id="top">
+            <h:form>
+                <center>
+                    <h2> Sistema Hidrometeorológico</h2>
+                </center>
+                <p:menubar>
+                    <p:menuitem value="Home" url="/faces/index.xhtml"> </p:menuitem>
+                    <p:submenu label="CATALOGOS" icon="ui-icon-document">
+                        <p:menuitem value="Pozo" url="/SHidroJPA/faces/Catalogos/Especialidades/FrmEspecialidades.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Lista de pozos" url="/SHidroJPA/faces/Catalogos/Especialidades/TblEspecialidades.xhtml" icon="fa fa-fw fa-book"/>
+                    </p:submenu>
+                    <p:submenu label="Estaciones" icon="ui-icon-document">
+                        <p:menuitem value="Estación Meteorológica" url="/faces/Catalogos/Medicos/FrmMedicos.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Lista de Estaciones" url="/faces/Catalogos/Medicos/TblMedicos.xhtml" icon="fa fa-fw fa-book"/>
+                    </p:submenu>
+                    <p:submenu label="Propietarios" icon="ui-icon-document">
+                        <p:menuitem value="Nuevo Propietario" url="/SHidroJPA/faces/Catalogos/Propietarios/FrmPropietarios.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Lista de Propietarios" url="/SHidroJPA/faces/Catalogos/Propietarios/TblPropietarios.xhtml" icon="fa fa-fw fa-book"/>
+                    </p:submenu>
+                    <p:submenu label="Visitantes" icon="ui-icon-document">
+                        <p:menuitem value="Nuevo Visitante" url="/faces/Catalogos/Pacientes/FrmPacientes.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Lista de Visitantes" url="/faces/Catalogos/Pacientes/TblPacientes.xhtml" icon="fa fa-fw fa-book"/>
+                    </p:submenu>
+                    <p:submenu label="Municipios" icon="ui-icon-document">
+                        <p:menuitem value="Nuevo Municipio" url="/SHidroJPA/faces/Catalogos/Municipios/FrmMunicipios.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Lista de Municipios" url="/SHidroJPA/faces/Catalogos/Municipios/TblMunicipios.xhtml" icon="fa fa-fw fa-book"/>
+                    </p:submenu>
+                    
+                     <p:submenu label="Pozo" icon="ui-icon-document">
+                        <p:menuitem value="Nuevo Pozo" url="/SHidroJPA/faces/Catalogos/Pozos/FrmPozos.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Lista de Pozos" url="/SHidroJPA/faces/Catalogos/Pozos/TblPozos.xhtml" icon="fa fa-fw fa-book"/>
+                    </p:submenu>
+                    
+                    <p:submenu label="Consultas" icon="ui-icon-document">                  
+                        <p:menuitem value="Visitantes" url="/faces/Consultas/ConsultaVisitantes.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Visitas a Pozos" url="/faces/Consultas/ConsultaHojaVisitasPozos.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Propietarios de pozos" url="/faces/Consultas/ConsultaPropietarios.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Pozos y sus propietarios" url="/faces/Consultas/ConsultaDastosPozos.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Lista general de datos de pozos" url="/faces/Consultas/ConsultaGeneralDastosPozos.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Geología y observacion de pozos" url="/faces/Consultas/ConsultaGeologiaObservPozos.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Lectura de sensor de pozos" url="/faces/Consultas/ConsultaLecturaSensorPozos.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Lectura de visitas a estaciones met." url="/faces/Consultas/ConsultaHojaVisitasEstacionesMet.xhtml" icon="fa fa-fw fa-book"/>
+
+                    </p:submenu>
+                    <p:submenu label="Informes" icon="ui-icon-document">
+                        <p:menuitem value="Pozos" url="/faces/Informes/ReporteAlumnos.xhtml" icon="fa fa-fw fa-book"/>
+                        <p:menuitem value="Estaciones Meteorológicas" url="/faces/Catalogos/Pacientes/TblPacientes.xhtml" icon="fa fa-fw fa-book"/>
+                    </p:submenu>
+                </p:menubar>
+            </h:form>
+            <ui:insert name="top"></ui:insert>
+        </div>
+        <div id="content" class="center_content">
+            <ui:insert name="content"></ui:insert>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">
+                Sistema Hidrometeorológico, UES-PARACENTRAL,Todos los derechos reservados 2018
+            </ui:insert>
+        </div>
+    </h:body>
+
+</html>

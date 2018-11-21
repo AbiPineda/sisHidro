@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:define name="content">
+        <h:form id="ConsultaHVP" acceptcharset="ISO-8859-1">
+            <p:panel header="LISTADO DE HOJA DE VISITAS A POZOS"  >
+                <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+
+                <p:dataTable id="ConsultaHVP" value="#{pozosbeans.lsthojavisitaspozos}" 
+                             var="consHVP" 
+                             paginator="true" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks}
+                             {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                             rowsPerPageTemplate="5,10,15" 
+                             >     
+                    <p:column headerText="Tipo Visitante" filterBy="#{consHVP.visitantes.tipovisitante}">
+                        <h:outputLabel value="#{consHVP.visitantes.tipovisitante}"/>
+                    </p:column>
+                    <p:column headerText="Visitante" filterBy="#{consHVP.visitantes.nombrevisitante}">
+                        <h:outputLabel value="#{consHVP.visitantes.nombrevisitante}"/>
+                    </p:column>
+                    <p:column headerText="Fecha" filterBy="#{consHVP.fechavisita}">
+                        <h:outputLabel value="#{consHVP.fechavisita}"/>
+                    </p:column>
+                    <p:column headerText="Pozo" filterBy="#{consHVP.pozos.pozo}">
+                        <h:outputLabel value="#{consHVP.pozos.pozo}"/>
+                    </p:column>                 
+                    <p:column headerText="Observación" filterBy="#{consHVP.observacion}">
+                        <h:outputLabel value="#{consHVP.observacion}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

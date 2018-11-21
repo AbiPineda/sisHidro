@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:define name="content">
+        <h:form id="ConsultaDatosPozos" acceptcharset="ISO-8859-1">
+            <p:panel header="LISTADO DE DATOS DE SENSOR DE LOS POZOS"  >
+                <p:toolbar>
+
+                    <f:facet name="left">
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" href="./../../index.xhtml"/>
+                    </f:facet> 
+
+                </p:toolbar>
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+
+                <p:dataTable id="ConsultaDatosPozos" value="#{consdatosensorpozosbeans.lstlecturasensorpozos}" 
+                             var="ConsPozos" 
+                             paginator="true" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks}
+                             {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                             rowsPerPageTemplate="5,10,15" 
+                             >   
+                    <p:column headerText="Pozo" filterBy="#{ConsPozos.pozos.pozo}">
+                        <h:outputLabel value="#{ConsPozos.pozos.pozo}"/>
+                    </p:column>
+                    <p:column headerText="Tipo pozo" filterBy="#{ConsPozos.tipopozo}">
+                        <h:outputLabel value="#{ConsPozos.tipopozo}"/>
+                    </p:column>  
+                    <p:column headerText="Fecha" filterBy="#{ConsPozos.pozos.estadopozo}">
+                        <h:outputLabel value="#{ConsPozos.date}"/>
+                    </p:column>  
+                    <p:column headerText="Tiempo" filterBy="#{ConsPozos.time}">
+                        <h:outputLabel value="#{ConsPozos.time}"/>
+                    </p:column>  
+                    <p:column headerText="Nivel" filterBy="#{ConsPozos.level}">
+                        <h:outputLabel value="#{ConsPozos.level}"/>
+                    </p:column>  
+                    } <p:column headerText="Temperatura" filterBy="#{ConsPozos.temperature}">
+                        <h:outputLabel value="#{ConsPozos.temperature}"/>
+                    </p:column>  
+
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

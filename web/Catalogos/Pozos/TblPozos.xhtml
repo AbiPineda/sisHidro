@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+ 
+    <ui:define name="content">
+        <h:form id="frmPozos" acceptcharset="ISO-8859-1">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+            <p:dataTable id="tablaPozos" value="#{pozosBean.lstPozos}"
+                         var="propietario"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks}
+                         {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15"
+                         filteredValue="#{pozosBean.lstdatosPozosFiltrada}"
+                         widgetVar="wTablaPozos">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px"
+                                     onkeyup="PF('wTablaPropietario').filter()"/>
+                        <p:commandButton action="FrmPropietarios.xhtml?faces-redirect=true"
+                                         icon="ui-icon-circle-plus"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="Codigo Propietario" filterBy="#{propietario.idpropietario}">
+                    <h:outputLabel value="#{propietario.idpropietario}"/>
+                </p:column>-
+                <p:column headerText="Nombres" filterBy="#{propietario.nombrepropietario}">
+                    <h:outputLabel value="#{propietario.nombrepropietario}"/>
+                </p:column>
+                <p:column headerText="Apellidos" filterBy="#{propietario.apellidopropietario}">
+                    <h:outputLabel value="#{propietario.apellidopropietario}"/>
+                </p:column>
+                <p:column headerText="Dirección" filterBy="#{propietario.direccionpropietario}">
+                    <h:outputLabel value="#{propietario.direccionpropietario}"/>
+                </p:column>
+                <p:column headerText="Teléfono Fijo" filterBy="#{propietario.telefonofijopropietario}">
+                    <h:outputLabel value="#{propietario.telefonofijopropietario}"/>
+                </p:column>
+                <p:column headerText="Teléfono Celular" filterBy="#{propietario.telefonocelularpropietario}">
+                    <h:outputLabel value="#{propietario.telefonocelularpropietario}"/>
+                </p:column>
+                <p:column headerText="Género" filterBy="#{propietario.sexopropietario}">
+                    <h:outputLabel value="#{propietario.sexopropietario}"/>
+                </p:column>
+                <p:column headerText="Acciones" style="width: 12%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
+                                             ajax="true" update="formModificar">
+                                <f:setPropertyActionListener 
+                                    target="#{propietariobeans.propietarioSeleccionado}"
+                                    value="#{propietario}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();"
+                                             ajax="true" update="frmPropietarios:tablaPropietarios">
+                                <f:setPropertyActionListener target="#{propietariobeans.propietarioSeleccionado}"
+                                                             value="#{propietario}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:panelGrid>
+                </p:column>      
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog message="¿Realmente desea borrar el registro?"
+                         header="MENSAJE DE CONFIRMACION"
+                         widgetVar="confirmacion">
+
+            <h:form>
+                <p:commandButton id="confirm" value="Si"
+                                 oncomplete="PF('confirmacion').hide()"
+                                 ajax="true" update="frmPropietarios:tablaPropietarios"
+                                 actionListener="#{propietariobeans.Eliminar()}"/>
+                <p:commandButton id="confirme" value="No"
+                                 onclick="PF('confirmacion').hide()"
+                                 type="button"/>
+            </h:form>
+        </p:confirmDialog>
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificacion de datos de Personas">
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="idpropietario" value="COD. PROPIETARIO"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText id="idpropietario" value="#{propietariobeans.propietarioSeleccionado.idpropietario}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="nombreprop" value="NOMBRE"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="nombreprop" value="#{propietariobeans.propietarioSeleccionado.nombrepropietario}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="apellidoprop" value="APELLIDO"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="apellidoprop" value="#{propietariobeans.propietarioSeleccionado.apellidopropietario}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="dir" value="DIRECCION"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="dir" value="#{propietariobeans.propietarioSeleccionado.direccionpropietario}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="telfijo" value="TELÉFONO FIJO"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="telfijo" value="#{propietariobeans.propietarioSeleccionado.telefonofijopropietario}"/>
+                            </p:column>                           
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="telcel" value="TELÉFONO CELULAR"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="telcel" value="#{propietariobeans.propietarioSeleccionado.telefonocelularpropietario}"/>
+                            </p:column>                           
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="genero" value="GÉNERO"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="genero" value="#{propietariobeans.propietarioSeleccionado.sexopropietario}"/>                                                               
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:commandButton value="Guardar Cambios"
+                                                 actionListener="#{propietariobeans.Actualizar()}"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

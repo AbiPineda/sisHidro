@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form>
+            <p:panel header="Nuevo Propietario">
+                <p:panelGrid columns="1" style="width: 100%">
+
+                    <p:outputLabel value="Nombres"/>
+                    <p:inputText value="#{propietariobeans.propietarioSeleccionado.nombrepropietario}"
+                                 size="35" required="true"
+                                 style="width: 1080px; margin-left: -4px" id="nombre">
+                        <f:validateLength minimum="2"  maximum="35"/>
+                        <p:ajax update="msgLastname" event="keyup" />
+                    </p:inputText>
+                    <p:message for="nombre" id="msgLastname" display="icon" />
+
+
+
+                    <p:outputLabel value="Apellidos"/>
+                    <p:inputText value="#{propietariobeans.propietarioSeleccionado.apellidopropietario}"
+                                 size="35" required="true"
+                                 style="width: 1080px; margin-left: -4px" id="apellido">
+                        <f:validateLength maximum="35"/>
+                    </p:inputText>
+                    
+
+                    <p:outputLabel value="Direccion"/>
+                    <p:inputTextarea  value="#{propietariobeans.propietarioSeleccionado.direccionpropietario}"
+                                      required="true"
+                                      style="width: 1080px; margin-left: -4px" id="direccion">
+                        <f:validateLength maximum="300"/>
+                    </p:inputTextarea>
+
+
+                    <p:outputLabel value="Teléfono Fijo"/>
+                    <p:inputText value="#{propietariobeans.propietarioSeleccionado.telefonofijopropietario}"
+                                 size="100" required="true"
+                                 style="width: 1080px; margin-left: -4px" id="telefonofijo">
+                        <f:validateLength maximum="10"/>
+                    </p:inputText> 
+
+                    <p:outputLabel value="Teléfono Celular"/>
+                    <p:inputText value="#{propietariobeans.propietarioSeleccionado.telefonocelularpropietario}"
+                                 size="10" required="true"
+                                 style="width: 1080px; margin-left: -4px" id="telefonocelular">
+                        <f:validateLength maximum="10"/>
+                    </p:inputText> 
+
+                    <p:outputLabel value="Género"/>
+                    <h:selectOneMenu value="#{propietariobeans.propietarioSeleccionado.sexopropietario}">  
+                        <f:selectItem itemValue="" itemLabel="Seleccione" /> 
+                        <f:selectItem itemValue="Másculino" itemLabel="Másculino" />
+                        <f:selectItem itemValue="Femenino" itemLabel="Femenino" /> 
+                    </h:selectOneMenu>
+
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton id="guardar" value="Guardar" icon="ui-icon-check"
+                                     style="margin: 0" action="#{propietariobeans.Insertar()}"/>
+                    <p:commandButton id="cancelar" value="Cancelar" icon="ui-icon-circle-close"
+                                     style="margin: 0" action="TblPropietarios" process="@this"/>
+                </f:facet>
+            </p:panel>
+            
+        </h:form>
+    </ui:define>
+</ui:composition>

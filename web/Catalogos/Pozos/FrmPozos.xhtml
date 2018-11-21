@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form>
+            <p:panel header="Nuevo Pozo">
+                <p:panelGrid columns="2" style="width: 100%">
+
+                    <p:outputLabel for="codigopozo" value="Pozo"/>
+                    <p:inputText id="codigopozo" value="#{pozosBean.pozosSelected.pozo}" required="true" label="CODIGO"/>
+                    
+                    <p:outputLabel for="latitud" value="Latitud"/>
+                    <p:inputText id="latitud" value="#{pozosBean.pozosSelected.latitud}" required="true" label="Latitud"/>
+                    
+                   <p:outputLabel for="longitud" value="Longitud"/>
+                   <p:inputText id="longitud" value="#{pozosBean.pozosSelected.longitud}" required="true" label="Longitud"/>
+                    
+                   <p:outputLabel for="altura" value="Altura (Mts)"/>
+                   <p:spinner min="20" max="100" id="altura" value="#{pozosBean.pozosSelected.altura}" required="true" label="Altura"/>
+                   
+                   <p:outputLabel for="nivel" value="Nivel(Mts)"/>
+                   <p:spinner min="20" max="100" id="nivel" value="#{pozosBean.pozosSelected.niveldepozo}" required="true" label="Nivel"/>
+                    
+                   <p:outputLabel for="profundidad" value="Profundidad(Mts)"/>
+                   <p:spinner min="2" max="25" id="profundidad" value="#{pozosBean.pozosSelected.profundidad}" required="true" label="Profundidad"/>
+                    
+                   <p:outputLabel for="fechacreacion" value="Fecha Creacion"/>
+                   <p:calendar id="fechacreacion" value="#{pozosBean.pozosSelected.fechacreacionpozo}" required="true" label="Fecha Creacion"/>
+                   
+                   <p:outputLabel for="municipio" value="Municipio"/>
+                   <p:autoComplete id="municipio" 
+                                   value="#{autoCompleteBeanMunicipios.municipios}"
+                                   completeMethod="#{autoCompleteBeanMunicipios.completeMunicipiosDespachos}"
+                                    var="m" itemLabel="#{m.nombremunicipio}" itemValue="#{m}"
+                                    converter="convertidorMunicipios" forceSelection="true"
+                                    dropdown="true">
+                        <p:column>
+                            #{m.iddepartamento.nombredepartamento}
+                        </p:column>
+                        <p:column>
+                            #{m.idmunicipio}
+                        </p:column>
+                        <p:column>
+                            #{m.nombremunicipio}
+                        </p:column>
+                            
+                    </p:autoComplete>
+                   
+                   <p:outputLabel for="propietario" value="Propietario"/>
+                   <p:autoComplete id="propietario" 
+                                   value="#{autoCompleteBeanPropietarios.propietarios}"
+                                   completeMethod="#{autoCompleteBeanPropietarios.completePropietariosDespachos}"
+                                    var="m" itemLabel="#{m.nombrepropietario}" itemValue="#{m}"
+                                    converter="convertidorPropietarios" forceSelection="true"
+                                    dropdown="true">
+                        <p:column>
+                            #{m.idpropietario}
+                        </p:column>
+                        <p:column>
+                            #{m.nombrepropietario}
+                        </p:column>
+                        <p:column>
+                            #{m.apellidopropietario}
+                        </p:column>
+                            
+                    </p:autoComplete>
+                   
+                   <p:outputLabel for="estado" value="Estado"/>
+                   <p:selectOneMenu id="estado" value="#{pozosBean.pozosSelected.estadopozo}" style="width: 180px; margin-left: -4px">
+                   <f:selectItem itemValue="" itemLabel="Seleccione"/>
+                   <f:selectItem itemValue="EN USO" itemLabel="EN USO"/>
+                    <f:selectItem itemValue="CERRADO" itemLabel="CERRADO"/>
+                   </p:selectOneMenu>
+                   
+                   <p:outputLabel for="tipo" value="Tipo"/>
+                   <p:selectOneMenu id="tipo" value="#{pozosBean.pozosSelected.tipopozo}" style="width: 180px; margin-left: -4px">
+                   <f:selectItem itemValue="" itemLabel="Seleccione"/>
+                   <f:selectItem itemValue="ADMINISTRADO POR ALCALDIA" itemLabel="ADMINISTRADO POR ALCALDIA"/>
+                    <f:selectItem itemValue="MONITOREO" itemLabel="MONITOREO"/>
+                    <f:selectItem itemValue="EXPLOTACIÓN ANDA" itemLabel="EXPLOTACIÓN ANDA"/>
+                    <f:selectItem itemValue="FAMILIAR" itemLabel="FAMILIAR"/>
+                   </p:selectOneMenu>
+                   
+                   
+                   <p:outputLabel for="geologia" value="Geologia"/>
+                   <p:inputText id="geologia" value="#{pozosBean.pozosSelected.geologia}" required="true" label="Geologia"/>
+                    
+                   <p:outputLabel for="observacion" value="Observacion"/>
+                   <p:inputText id="observacion" value="#{pozosBean.pozosSelected.observacion}" required="true" label="Observacion"/>
+                    
+                    <f:facet name="footer">
+                        <p:commandButton id="guardar" value="Guardar" icon="ui-icon-check"
+                                         style="margin: 0"
+                                         action="#{pozosBean.insertarPozos()}">
+                        </p:commandButton>
+                        
+                         <p:commandButton id="cancelar" value="Cancelar" icon="ui-icon-circle-close"
+                                         style="margin: 0"
+                                         action="TblPozos">
+                        </p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

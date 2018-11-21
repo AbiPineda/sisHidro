@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="frmMunicipios" acceptcharset="ISO-8859-1">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+            <p:dataTable id="tablaMunicipios" value="#{municipiosBean.lstMunicipios}"
+                         var="muni"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks}
+                         {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15"
+                         filteredValue="#{municipiosBean.lstdatosMunicipiosFiltrada}"
+                         widgetVar="wTablaPropietario">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px"
+                                     onkeyup="PF('wTablaPropietario').filter()"/>
+                        <p:commandButton action="FrmMunicipios.xhtml?faces-redirect=true"
+                                         icon="ui-icon-circle-plus"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="Nombre Departamento" filterBy="#{muni.iddepartamento.nombredepartamento}">
+                    <h:outputLabel value="#{muni.iddepartamento.nombredepartamento}"/>
+                </p:column>-
+                <p:column headerText="Nombre Municipio" filterBy="#{muni.nombremunicipio}">
+                    <h:outputLabel value="#{muni.nombremunicipio}"/>
+                </p:column>
+                  
+                <p:column headerText="Acciones" style="width: 12%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
+                                             ajax="true" update="formModificar">
+                                <f:setPropertyActionListener 
+                                    target="#{municipiosBean.municipioSelected}"
+                                    value="#{muni}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();"
+                                             ajax="true" update="frmMunicipios:tablaMunicipios">
+                                <f:setPropertyActionListener target="#{municipiosBean.municipioSelected}"
+                                                             value="#{muni}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:panelGrid>
+                </p:column>      
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog message="¿Realmente desea borrar el registro?"
+                         header="MENSAJE DE CONFIRMACION"
+                         widgetVar="confirmacion">
+
+            <h:form>
+                <p:commandButton id="confirm" value="Si"
+                                 oncomplete="PF('confirmacion').hide()"
+                                 ajax="true" update="frmMunicipios:tablaMunicipios"
+                                 actionListener="#{municipiosBean.eliminarMunicipios()}"/>
+                <p:commandButton id="confirme" value="No"
+                                 onclick="PF('confirmacion').hide()"
+                                 type="button"/>
+            </h:form>
+        </p:confirmDialog>
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificacion de datos de Personas">
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="idmunicipio" value="COD. MNICIPIO"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText id="idmunicipio" value="#{municipiosBean.municipioSelected.idmunicipio}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="nombremuni" value="NOMBRE MUNICIPIO"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="nombremuni" value="#{municipiosBean.municipioSelected.nombremunicipio}"/>
+                            </p:column>
+                        </p:row>
+                         <p:row>
+                             <p:column>
+                          <p:outputLabel for="nomdep" value="DEPARTAMENTO*"/>
+                            </p:column>
+                             <p:column>
+                         <p:autoComplete id="nomdep" 
+                                    value="#{autoCompleteBeanDepartamentos.departamentos}"
+                                    completeMethod="#{autoCompleteBeanDepartamentos.completeDepartamentosDespachos}"
+                                    var="m" itemLabel="#{m.nombredepartamento}" itemValue="#{m}"
+                                    converter="convertidorDepartamento" forceSelection="true"
+                                    dropdown="true">
+                        <p:column>
+                            #{m.iddepartamento}
+                        </p:column>
+                        <p:column>
+                            #{m.nombredepartamento}
+                        </p:column>
+                            
+                    </p:autoComplete>
+                                 </p:column>
+                          </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:commandButton value="Guardar Cambios"
+                                                 actionListener="#{municipiosBean.actualizarMunicipios()}"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>
