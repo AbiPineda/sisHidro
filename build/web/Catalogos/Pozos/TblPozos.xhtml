@@ -11,42 +11,60 @@
             <p:growl autoUpdate="true" showDetail="true"/>
             <p:messages autoUpdate="true" closable="true" showDetail="true"/>
             <p:dataTable id="tablaPozos" value="#{pozosBean.lstPozos}"
-                         var="propietario"
+                         var="poz"
                          paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks}
                          {NextPageLink} {LastPageLink}"
                          rowsPerPageTemplate="5,10,15"
                          filteredValue="#{pozosBean.lstdatosPozosFiltrada}"
                          widgetVar="wTablaPozos">
-                <f:facet name="header">
+                <f:facet name="header"> 
                     <p:outputPanel>
                         <p:outputLabel value="Busqueda" for="globalFilter"/>
                         <p:inputText id="globalFilter" style="width: 500px"
-                                     onkeyup="PF('wTablaPropietario').filter()"/>
-                        <p:commandButton action="FrmPropietarios.xhtml?faces-redirect=true"
+                                     onkeyup="PF('wTablaPozos').filter()"/>
+                        <p:commandButton action="FrmPozos.xhtml?faces-redirect=true"
                                          icon="ui-icon-circle-plus"/>
                     </p:outputPanel>
                 </f:facet>
-                <p:column headerText="Codigo Propietario" filterBy="#{propietario.idpropietario}">
-                    <h:outputLabel value="#{propietario.idpropietario}"/>
+                <p:column headerText="Codigo Pozo" filterBy="#{poz.pozo}">
+                    <h:outputLabel value="#{poz.pozo}"/>
                 </p:column>-
-                <p:column headerText="Nombres" filterBy="#{propietario.nombrepropietario}">
-                    <h:outputLabel value="#{propietario.nombrepropietario}"/>
+                <p:column headerText="Latitud" filterBy="#{poz.latitud}">
+                    <h:outputLabel value="#{poz.latitud}"/>
                 </p:column>
-                <p:column headerText="Apellidos" filterBy="#{propietario.apellidopropietario}">
-                    <h:outputLabel value="#{propietario.apellidopropietario}"/>
+                <p:column headerText="Longitud" filterBy="#{poz.longitud}">
+                    <h:outputLabel value="#{poz.longitud}"/>
                 </p:column>
-                <p:column headerText="Dirección" filterBy="#{propietario.direccionpropietario}">
-                    <h:outputLabel value="#{propietario.direccionpropietario}"/>
+                <p:column headerText="Altura" filterBy="#{poz.altura}">
+                    <h:outputLabel value="#{poz.altura}"/>
                 </p:column>
-                <p:column headerText="Teléfono Fijo" filterBy="#{propietario.telefonofijopropietario}">
-                    <h:outputLabel value="#{propietario.telefonofijopropietario}"/>
+                <p:column headerText="Nivel" filterBy="#{poz.niveldepozo}">
+                    <h:outputLabel value="#{poz.niveldepozo}"/>
                 </p:column>
-                <p:column headerText="Teléfono Celular" filterBy="#{propietario.telefonocelularpropietario}">
-                    <h:outputLabel value="#{propietario.telefonocelularpropietario}"/>
+                <p:column headerText="Profundidad" filterBy="#{poz.profundidad}">
+                    <h:outputLabel value="#{poz.profundidad}"/>
                 </p:column>
-                <p:column headerText="Género" filterBy="#{propietario.sexopropietario}">
-                    <h:outputLabel value="#{propietario.sexopropietario}"/>
+                <p:column headerText="Fecha Creacion" filterBy="#{poz.fechacreacionpozo}">
+                    <h:outputLabel value="#{poz.fechacreacionpozo}"/>
+                </p:column>
+                <p:column headerText="Municipio" filterBy="#{poz.idmunicipio.nombremunicipio}">
+                    <h:outputLabel value="#{poz.idmunicipio.nombremunicipio}"/>
+                </p:column>
+                <p:column headerText="Propietario" filterBy="#{poz.idpropietario.nombrepropietario}">
+                    <h:outputLabel value="#{poz.idpropietario.nombrepropietario}"/>
+                </p:column>
+                <p:column headerText="Estado" filterBy="#{poz.estadopozo}">
+                    <h:outputLabel value="#{poz.estadopozo}"/>
+                </p:column>
+                <p:column headerText="Tipo" filterBy="#{poz.tipopozo}">
+                    <h:outputLabel value="#{poz.tipopozo}"/>
+                </p:column>
+                <p:column headerText="Geologia" filterBy="#{poz.geologia}">
+                    <h:outputLabel value="#{poz.geologia}"/>
+                </p:column>
+                <p:column headerText="Observacion" filterBy="#{poz.observacion}">
+                    <h:outputLabel value="#{poz.observacion}"/>
                 </p:column>
                 <p:column headerText="Acciones" style="width: 12%">
                     <p:panelGrid>
@@ -54,15 +72,15 @@
                             <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
                                              ajax="true" update="formModificar">
                                 <f:setPropertyActionListener 
-                                    target="#{propietariobeans.propietarioSeleccionado}"
-                                    value="#{propietario}"/>
+                                    target="#{pozosBean.pozosSelected}"
+                                    value="#{poz}"/>
                             </p:commandButton>
                         </p:column>
                         <p:column headerText="">
                             <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();"
-                                             ajax="true" update="frmPropietarios:tablaPropietarios">
-                                <f:setPropertyActionListener target="#{propietariobeans.propietarioSeleccionado}"
-                                                             value="#{propietario}"/>
+                                             ajax="true" update="frmPozos:tablaPozos">
+                                <f:setPropertyActionListener target="#{pozosBean.pozosSelected}"
+                                                             value="#{poz}"/>
                             </p:commandButton>
                         </p:column>
                     </p:panelGrid>
@@ -76,8 +94,8 @@
             <h:form>
                 <p:commandButton id="confirm" value="Si"
                                  oncomplete="PF('confirmacion').hide()"
-                                 ajax="true" update="frmPropietarios:tablaPropietarios"
-                                 actionListener="#{propietariobeans.Eliminar()}"/>
+                                 ajax="true" update="frmPozos:tablaPozos"
+                                 actionListener="#{pozosBean.eliminarPozos()}"/>
                 <p:commandButton id="confirme" value="No"
                                  onclick="PF('confirmacion').hide()"
                                  type="button"/>
