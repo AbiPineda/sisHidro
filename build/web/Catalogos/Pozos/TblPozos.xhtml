@@ -46,7 +46,7 @@
                     <h:outputLabel value="#{poz.profundidad}"/>
                 </p:column>
                 <p:column headerText="Fecha Creacion" filterBy="#{poz.fechacreacionpozo}">
-                    <h:outputLabel value="#{poz.fechacreacionpozo}"/>
+                    <p:calendar disabled="true" value="#{poz.fechacreacionpozo}"/>
                 </p:column>
                 <p:column headerText="Municipio" filterBy="#{poz.idmunicipio.nombremunicipio}">
                     <h:outputLabel value="#{poz.idmunicipio.nombremunicipio}"/>
@@ -102,69 +102,145 @@
             </h:form>
         </p:confirmDialog>
         <h:form id="formModificar">
-            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificacion de datos de Personas">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificacion de datos de Pozos">
                 <p:panel header="Modificar">
                     <p:panelGrid styleClass="sinBorde">
                         <p:row>
                             <p:column>
-                                <p:outputLabel for="idpropietario" value="COD. PROPIETARIO"/>
+                                <p:outputLabel for="codigopozo" value="Pozo"/>
                             </p:column>
                             <p:column>
-                                <h:outputText id="idpropietario" value="#{propietariobeans.propietarioSeleccionado.idpropietario}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel for="nombreprop" value="NOMBRE"/>
-                            </p:column>
-                            <p:column>
-                                <h:inputText id="nombreprop" value="#{propietariobeans.propietarioSeleccionado.nombrepropietario}"/>
+                                <h:outputText id="codigopozo" value="#{pozosBean.pozosSelected.pozo}"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column>
-                                <p:outputLabel for="apellidoprop" value="APELLIDO"/>
+                                <p:outputLabel for="latitud" value="Latitud"/>
                             </p:column>
                             <p:column>
-                                <h:inputText id="apellidoprop" value="#{propietariobeans.propietarioSeleccionado.apellidopropietario}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel for="dir" value="DIRECCION"/>
-                            </p:column>
-                            <p:column>
-                                <h:inputText id="dir" value="#{propietariobeans.propietarioSeleccionado.direccionpropietario}"/>
+                                <h:inputText id="latitud" value="#{pozosBean.pozosSelected.latitud}"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column>
-                                <p:outputLabel for="telfijo" value="TELÉFONO FIJO"/>
+                                <p:outputLabel for="longitud" value="Longitud"/>
                             </p:column>
                             <p:column>
-                                <h:inputText id="telfijo" value="#{propietariobeans.propietarioSeleccionado.telefonofijopropietario}"/>
+                                <h:inputText id="longitud" value="#{pozosBean.pozosSelected.longitud}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="altura" value="Altura"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="altura" value="#{pozosBean.pozosSelected.altura}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="nivel" value="Nivel"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="nivel" value="#{pozosBean.pozosSelected.niveldepozo}"/>
                             </p:column>                           
                         </p:row>
                         <p:row>
                             <p:column>
-                                <p:outputLabel for="telcel" value="TELÉFONO CELULAR"/>
+                                <p:outputLabel for="profundidad" value="Profundidad"/>
                             </p:column>
                             <p:column>
-                                <h:inputText id="telcel" value="#{propietariobeans.propietarioSeleccionado.telefonocelularpropietario}"/>
+                                <h:inputText id="profundidad" value="#{pozosBean.pozosSelected.profundidad}"/>
                             </p:column>                           
                         </p:row>
+                        
+                        
+                         <p:row>
+                             <p:column>
+                          <p:outputLabel for="municipio" value="Municipio"/>
+                            </p:column>
+                             <p:column>
+                         <p:autoComplete id="municipio" 
+                                         value="#{autoCompleteBeanMunicipios.municipios}"
+                                         completeMethod="#{autoCompleteBeanMunicipios.completeMunicipiosDespachos}"
+                                    var="m" itemLabel="#{m.nombremunicipio}" itemValue="#{m}"
+                                    converter="convertidorMunicipios" forceSelection="true"
+                                    dropdown="true">
+                         
+                        <p:column>
+                            #{m.idmunicipio}
+                        </p:column>
+                        <p:column>
+                            #{m.nombremunicipio}
+                        </p:column>
+                            
+                    </p:autoComplete>
+                                 </p:column>
+                          </p:row>
+                        
+                        <p:row>
+                             <p:column>
+                          <p:outputLabel for="propietario" value="Propietario"/>
+                            </p:column>
+                             <p:column>
+                         <p:autoComplete id="propietario" 
+                                         value="#{autoCompleteBeanPropietarios.propietarios}"
+                                         completeMethod="#{autoCompleteBeanPropietarios.completePropietariosDespachos}"
+                                    var="m" itemLabel="#{m.nombrepropietario}" itemValue="#{m}"
+                                    converter="convertidorPropietarios" forceSelection="true"
+                                    dropdown="true">
+                         
+                        <p:column>
+                            #{m.idpropietario}
+                        </p:column>
+                        <p:column>
+                            #{m.nombrepropietario}
+                        </p:column>
+                            
+                    </p:autoComplete>
+                                 </p:column>
+                          </p:row>
+                        
                         <p:row>
                             <p:column>
-                                <p:outputLabel for="genero" value="GÉNERO"/>
+                                <p:outputLabel for="estado" value="Estado"/>
                             </p:column>
                             <p:column>
-                                <h:inputText id="genero" value="#{propietariobeans.propietarioSeleccionado.sexopropietario}"/>                                                               
+                                <h:inputText id="estado" value="#{pozosBean.pozosSelected.estadopozo}"/>                                                               
                             </p:column>
                         </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="tipo" value="Tipo"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="tipo" value="#{pozosBean.pozosSelected.tipopozo}"/>                                                               
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="geologia" value="Geologia"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="geologia" value="#{pozosBean.pozosSelected.geologia}"/>                                                               
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="observacion" value="Observacion"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="observacion" value="#{pozosBean.pozosSelected.observacion}"/>                                                               
+                            </p:column>
+                        </p:row>
+                        
                         <p:row>
                             <p:column>
                                 <h:commandButton value="Guardar Cambios"
-                                                 actionListener="#{propietariobeans.Actualizar()}"/>
+                                                 actionListener="#{pozosBean.actualizarPozos()}"/>
                             </p:column>
                         </p:row>
                     </p:panelGrid>

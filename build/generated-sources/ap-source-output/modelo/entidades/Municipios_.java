@@ -8,7 +8,7 @@ import modelo.entidades.Departamentos;
 import modelo.entidades.Estacionmeteorologica;
 import modelo.entidades.Pozos;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-11-14T10:58:16")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-11-21T10:46:20")
 @StaticMetamodel(Municipios.class)
 public class Municipios_ { 
 
